@@ -1,0 +1,271 @@
+%% Diagram packages
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+
+%% Diagram font sizes
+\let\nodesize\scriptsize
+\let\namesize\scriptsize
+\let\descsize\scriptsize
+
+%% Global TikZ style setup
+\tikzset{%
+  source/.style={draw,thick,rounded corners,fill=yellow!20,inner sep=.1cm,font=\namesize},
+  process/.style={draw,thick,circle,fill=blue!20,font=\namesize,inner sep=.1cm},
+  sink/.style={source,fill=green!20,font=\namesize},
+  datastore/.style={draw,very thick,shape=datastore,inner sep=.1cm,font=\namesize},
+  dots/.style={gray,scale=2},
+  to/.style={->,>=stealth',shorten >=1pt,semithick,font=\descsize},
+  every node/.style={align=center}
+}
+
+%% Diagram helper definitions
+%%% \tikzsizedlist[<default font size>]{<a \\ delimited \\ list>}
+\newcommand{\tikzsizedlist}[2][]{%
+  #1\begin{tabular}{@{}c@{}}#2\end{tabular}}
+
+%% The `datastore` shape
+\pgfdeclareshape{datastore}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{north east}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{south east}
+    \inheritanchor[from=rectangle]{south}
+    \inheritanchor[from=rectangle]{south west}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{north west}
+    \iffalse
+    \backgroundpath{
+        %  store lower right in xa/ya and upper right in xb/yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+   }
+   \fi
+}
+
+%% Diagram 1
+\newcommand\STqueryingdiagram{%
+\begin{tikzpicture}[
+  every matrix/.style={ampersand replacement=\&,column sep=1.7cm,row sep=1cm}
+]
+% Position the nodes using a matrix layout
+\matrix{
+  \node[source]         (query) {Dotaz};
+  \& \node[process]     (pipeline)    {\tikzsizedlist[\footnotesize]{
+    \namesize Segmentace
+    }};
+  \& \node[datastore]   (qnuggets) {
+    \tdplotsetmaincoords{60}{120}
+    \begin{tikzpicture}[tdplot_main_coords]
+      % Coordinates
+      \draw[thick,->] (0,0,0) -- (1,0,0);
+      \draw[thick,->] (0,0,0) -- (0,1,0);
+      \draw[thick,->] (0,0,0) -- (0,0,1);
+      % Cluster
+      \tdplotsetrotatedcoords{0}{0}{0}
+      \draw[dashed,tdplot_rotated_coords,violet] (.7,0,0) arc (0:90:.7);
+      \tdplotsetrotatedcoords{0}{90}{90}
+      \draw[dashed,tdplot_rotated_coords,violet] (.7,0,0) arc (0:90:.7);
+      % Vectors
+      \draw[thick,->,violet] (0,0,0) -- (.5,-.3,.9);
+      \draw[thick,->,violet] (0,0,0) -- (0,.4,.5);
+      \draw[thick,->,violet] (0,0,0) -- (.4,.3,0);
+    \end{tikzpicture}
+    \\[8pt] Segmenty dotazu \\[2pt]};
+  \&\& \node[datastore]   (dnuggets) {
+      \tdplotsetmaincoords{60}{120}
+			\hspace{0.3cm}%
+      \begin{tikzpicture}[tdplot_main_coords]
+        % Coordinates
+        \draw[thick,->] (0,0,0) -- (1,0,0);
+        \draw[thick,->] (0,0,0) -- (0,1,0);
+        \draw[thick,->] (0,0,0) -- (0,0,1);
+        % Clusters
+        %% Document 2
+        \tdplotsetrotatedcoords{0}{0}{0}
+        \draw[dashed,tdplot_rotated_coords,green]
+          (2+.7,2+0,2+0) arc (0:90:.7);
+        \tdplotsetrotatedcoords{0}{90}{90}
+        \draw[dashed,tdplot_rotated_coords,green]
+          (2+.7,2+0,2+0) arc (0:90:.7);
+        %% Document 3
+        \tdplotsetrotatedcoords{0}{0}{0}
+        \draw[dashed,tdplot_rotated_coords,blue]
+          (4+.7,1+0,3+0) arc (0:90:.7);
+        \tdplotsetrotatedcoords{0}{90}{90}
+        \draw[dashed,tdplot_rotated_coords,blue]
+          (.7-4,0-2.75,0-4.6) arc (0:90:.7);
+        %% Document 1
+        \tdplotsetrotatedcoords{0}{0}{0}
+        \draw[dashed,tdplot_rotated_coords,red]
+          (.7,0,0-1) arc (0:90:.7);
+        \tdplotsetrotatedcoords{0}{90}{90}
+        \draw[dashed,tdplot_rotated_coords,red]
+          (.7,-1,0) arc (0:90:.7);
+        % Vectors
+        %% Document 1
+        \draw[thick,->,blue] (0,0,0) -- (4.3+1, 1+.3,3.2+.9);
+        \draw[thick,->,blue] (0,0,0) -- (4.3+0, 1+.4,3.2+.5);
+        \draw[thick,->,blue] (0,0,0) -- (4.3+.4,1+.3,3.2+0);
+        \draw[thick,->,blue] (0,0,0) -- (4.3,1,3.2);
+        %% Document 2
+        \draw[thick,->,red] (0,0,0) -- (1,.3,.9-1.1);
+        \draw[thick,->,red] (0,0,0) -- (0,.4,.5-0.9);
+        \draw[thick,->,red] (0,0,0) -- (.4,.3,0-.9);
+        %% Document 3
+        \draw[thick,->,green] (0,0,0) -- (2+1,2+.3,2+.9);
+        \draw[thick,->,green] (0,0,0) -- (2+0,2+.4,2+.5);
+        \draw[thick,->,green] (0,0,0) -- (2+.4,2+.3,2+0);
+      \end{tikzpicture}
+      \\[5pt] Indexované segmenty};
+  \& \node[process]    (simsearch) {\tikzsizedlist[\footnotesize]{
+    \namesize Podobnostní \\
+    \namesize hledání
+    }};
+  \&\& \node[datastore]   (cnuggets) {
+    \tdplotsetmaincoords{60}{120}
+    \begin{tikzpicture}[tdplot_main_coords]
+      % Coordinates
+      \draw[thick,->] (0,0,0) -- (1,0,0);
+      \draw[thick,->] (0,0,0) -- (0,1,0);
+      \draw[thick,->] (0,0,0) -- (0,0,1);
+      % Query Nuggets
+      \draw[thick,->,violet] (0,0,0) -- (.5,-.3,.9);
+      \draw[thick,->,violet] (0,0,0) -- (0,.4,.5);
+      \draw[thick,->,violet] (0,0,0) -- (.4,.3,0);
+      %% Document 1
+      \draw[thick,->,blue] (0,0,0) -- (4.3+1,1+.3,3.2+.9);
+      \draw[thick,->,blue] (0,0,0) -- (4.3+0,1+.4,3.2+.5);
+      %\draw[thick,->,blue] (0,0,0) -- (4.3+.4,1+.3,3.2+0);
+      %% Document 2
+      \draw[thick,->,green] (0,0,0) -- (2+1,2+.3,2+.9);
+      \draw[thick,->,green] (0,0,0) -- (2+0,2+.4,2+.5);
+      %\draw[thick,->,green] (0,0,0) -- (2+.4,2+.3,2+0);
+      %% Document 3
+      \draw[thick,->,red] (0,0,0) -- (1,.3,.9-1.1);
+      \draw[thick,->,red] (0,0,0) -- (0,.4,.5-0.9);
+      %\draw[thick,->,red] (0,0,0) -- (.4,.3,0-1);
+      \end{tikzpicture}
+    \\ Kandidátní segmenty \\[4pt]};
+  \&\& \node[process]    (ranker) {\tikzsizedlist[\footnotesize]{
+    \namesize Řazení      \\
+    }};
+  \& \node[datastore]   (rsnuggets) {
+    \tdplotsetmaincoords{60}{120}
+    \begin{tikzpicture}[tdplot_main_coords]
+      % Coordinates
+      \draw[thick,->] (0,0,0) -- (1,0,0);
+      \draw[thick,->] (0,0,0) -- (0,1,0);
+      \draw[thick,->] (0,0,0) -- (0,0,1);
+      % Query Nuggets
+      \draw[thick,->,violet] (0,0,0) -- (.5,-.3,.9);
+      \draw[thick,->,violet] (0,0,0) -- (0,.4,.5);
+      \draw[thick,->,violet] (0,0,0) -- (.4,.3,0);
+      %% Document 2
+      \draw[thick,->,green] (0,0,0) -- (2+1,2+.3,2+.9);
+      %% Document 3
+      \draw[thick,->,blue] (0,0,0) -- (4.3+0,1+.4,3.2+.5);
+        node[anchor=east] {3};
+      \draw[thick,->,red] (0,0,0) -- (0,.4,.5-0.9);
+    \end{tikzpicture}
+    \\[8pt] Seřazené segmenty \\[1pt]};
+  \&\& \node[datastore]   (rsdocuments) {
+    \tdplotsetmaincoords{60}{120}
+    \begin{tikzpicture}[tdplot_main_coords]
+      % Coordinates
+      \draw[thick,->] (0,0,0) -- (1,0,0);
+      \draw[thick,->] (0,0,0) -- (0,1,0);
+      \draw[thick,->] (0,0,0) -- (0,0,1);
+      % Clusters
+      %% Document 2
+      \tdplotsetrotatedcoords{0}{0}{0}
+      \draw[dashed,tdplot_rotated_coords,green]
+        (2+.7,2+0,2+0) arc (0:90:.7);
+      \tdplotsetrotatedcoords{0}{90}{90}
+      \draw[dashed,tdplot_rotated_coords,green]
+        (2+.7,2+0,2+0) arc (0:90:.7);
+      %% Document 3
+      \tdplotsetrotatedcoords{0}{0}{0}
+      \draw[dashed,tdplot_rotated_coords,blue]
+        (4+.7,1+0,3+0) arc (0:90:.7);
+      \tdplotsetrotatedcoords{0}{90}{90}
+      \draw[dashed,tdplot_rotated_coords,blue]
+        (.7-4,0-2.75,0-4.6) arc (0:90:.7);
+      %% Document 1
+      \tdplotsetrotatedcoords{0}{0}{0}
+      \draw[dashed,tdplot_rotated_coords,red]
+        (.7,0,0-1) arc (0:90:.7);
+      \tdplotsetrotatedcoords{0}{90}{90}
+      \draw[dashed,tdplot_rotated_coords,red]
+        (.7,-1,0) arc (0:90:.7);
+    \end{tikzpicture}
+    \\ Seřazené dokumenty}; \\
+};
+
+% Draw the arrows between the nodes and label them.
+\draw[to] (query) to[bend left=30] (pipeline);
+\draw[to] (pipeline) to[bend right=30] (qnuggets);
+\draw[to] (qnuggets) to[bend left=50] (simsearch);
+\draw[to] (dnuggets) to[bend right=53] (simsearch);
+\draw[to] (simsearch) to[bend right=25] (cnuggets);
+\draw[to] (cnuggets) to[bend left=20] (ranker);
+\draw[to] (ranker) to[bend left=40] (rsnuggets);
+\draw[to] (ranker) to[bend right=45] (rsdocuments);
+\end{tikzpicture}%
+\vspace{-0.27cm}
+}
+
+\newcommand\STindexingdiagram{%
+\vspace*{-2cm}
+\hspace*{-1cm}
+\begin{tikzpicture}[
+  every matrix/.style={ampersand replacement=\&,column sep=1.7cm,row sep=1cm},
+]
+% Position the nodes using a matrix layout
+\matrix{
+	\node[datastore] (output) {}; \\ \\ \\
+		\& \node[process] (segment2vec) {\tikzsizedlist[\nodesize]{
+      \namesize Segment2Vec \\ }};
+    \& \node[process] (semmod)      {\tikzsizedlist[\nodesize]{
+      \namesize SemanticModeler \\
+      (e.g.\ \textsc{TfIdf}, \textsc{LSI}, deep \\ learning,
+      \texttt{doc2vec}) }};
+    \& \node[process] (segmenter)   {\tikzsizedlist[\nodesize]{
+      \namesize Segmenter        \\
+      (e.g.\ paragraph / \\ logical part \\ {[}table, formula{]}
+      \\ segmenter) }};
+    \& \node[process] (tokenizer)   {\tikzsizedlist[\nodesize]{
+      \namesize Tokenizer        \\
+      (e.g.\ \textsc{nltk} \\ tokenizer) }};
+    \& \node[source] (input) { Input \\ Document}; \\
+};
+
+% Draw the arrows between the nodes and label them.
+\draw[to] (input) to[bend right=30]
+    node[midway,above=3pt] {input document as \\ a file, \textsc{url}, \ldots}
+    (tokenizer);
+\draw[to] (tokenizer) to[bend left=50]
+    node[midway,right=40pt,above=-12pt] {document as \\ a token list} (segmenter);
+\draw[to] (segmenter) to[bend left=40]
+    node[midway,below=8pt,right=40pt] {document as \\ a segment list} (segment2vec);
+\draw[to] (semmod) to[bend right=45] (segment2vec);
+\draw[to,transform canvas={yshift=-3ex}] (segmenter) to[bend right=45]
+  (semmod);
+\draw[to,transform canvas={yshift= 1ex}] (segmenter) to[bend right=45]
+  (semmod);
+\draw[to,transform canvas={yshift=-1ex}] (segmenter) to[bend right=45]
+  node[midway,above=18pt,right=20pt] {all segments in \\ all documents} (semmod);
+\draw[to] (segment2vec) to[bend left=52]
+  node[midway,right=30pt,above=-20pt] {document as \\ a list of points \\ representing
+  \\ segments} (output);
+\end{tikzpicture}%
+}
