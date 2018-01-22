@@ -16,6 +16,7 @@
 
 % Macro definitions.
 \let\abbr\relax
+\let\term\emph
 \begin{document}
 
 \begin{frame}[plain]
@@ -29,30 +30,69 @@
 \section{Úvod}
 \begin{frame}{Úvod}
 \begin{itemize}
-  \item<1-7> V~rámci výzkumné skupiny \abbr{MIR} na \abbr{FI} \abbr{MU} jsem se
-    ve spolupráci s~RaRe Technologies s.r.o. zúčastnil druhého ročníku projektu
-    \alert<1>{\abbr{TA} \abbr{ČR} Omega}.
-  \item<2-7> Cíl byl vyvinout \alert<2-3>{segmentující vyhledávač}
-    nestrukturovaných textových dokumentů.
-  \only<4-7>{%
-  \item<4-7> V rámci projektu jsem dostal možnost prezentovat náš výzkum na \abbr{ACL}~2017.
-  \item<5-7> V návaznosti na výzkum prezentovaný na \abbr{ACL}~2017 jsem
-    provedl \alert<5-7>{dvojici experimentů}, které jsou předmětem této
+  \item<1-> V~rámci výzkumné skupiny Math Information Retrieval (\abbr{MIR})
+    jsem se ve spolupráci s~firmou RaRe Technologies zúčastnil druhého ročníku
+    projektu \alert<1>{\abbr{TA} \abbr{ČR} Omega}.
+  \item<2-> Cíl byl vyvinout \alert<2-3>{segmentující vyhledávač}
+    nestrukturovaných textových dokumentů\only<2-3>:\only<4->.
+  \only<4->{%
+  \item<4-> V rámci projektu jsem dostal možnost prezentovat náš výzkum na \abbr{ACL}~2017.
+  \item<5-> V návaznosti na výzkum prezentovaný na \abbr{ACL}~2017 jsem
+    provedl \alert<5->{dvojici experimentů}, které jsou předmětem této
     diplomové práce:
   \begin{enumerate}
-    \item<6-7> U~vyhledávačů, které musí vždy navrátit celé dokumenty a nikoliv
+    \item<6-> U~vyhledávačů, které musí vždy navrátit celé dokumenty a nikoliv
       pouze segmenty, lze \alert<6>{agregací nalezených segmentů} zlepšit
       kvalitu výsledků oproti hledání bez segmentace.
-    \item<7-7> Rozšířením standardního vektorového modelu o neortogonalitu mezi
+    \item<7-> Rozšířením standardního vektorového modelu o neortogonalitu mezi
       bázovými vektory lze \alert<7>{modelovat synonymitu slov} a docílit
       dalšího zlepšení kvality výsledků.
   \end{enumerate}}
 \end{itemize}
 \only<1-3>{%
-  \only<3>{\hspace*{-14.5cm}}%
+  \only<3>{\hspace*{-14cm}}%
   \uncover<2-3>{\STqueryingdiagram}}
-\only<4-7>{\vspace*{2cm}}
+\only<4->{\vspace*{2cm}}
 \end{frame}
+
+\section{Datová sada}
+\begin{frame}<1-4>[label=dataset]{Datová sada}
+\begin{itemize}
+\item<1-> V rámci obou experimentů jsem využil datovou sadu pro úlohu 3
+  (zodpovídání dotazů) z~ročníků 2016 a 2017 soutěže SemEval.
+\item<2-> Datové sady pro podúlohu 3a obsahují \alert<2-6>{vlákna s dotazem a
+  prvními deseti komentáři} spolu s~anotací, jestli \alert<2-6>{je komentář
+  relevantní k~dotazu}.
+  \begin{itemize}
+    \item<3-> Mike Godwin roku 1991 formuloval empirické pravidlo, že
+      „s~rostoucí délkou UseNetové diskuze se pravděpodobnost přirovnání
+      zmiňujícího nacisty nebo Hitlera blíží k~jedné.“
+    \item<4-> Na základě tohoto pravidla jsem formuloval a vyvrátil hypotézu, že
+      \alert<4>{pravděpodobnost výskytu relevantních komentářů na jednotlivých
+      pozicích je rovnoměrná}.
+  \end{itemize}
+\item<5-> Datové sady pro podúlohu 3b obsahují dotazy a \alert<5-6>{pro každý
+  dotaz deset vláken} spolu s anotací, jestli se \alert<5-6>{vlákno týká dotazu}.
+  \begin{itemize}
+    \item<6-> Tyto datové sady byly použity pro evaluaci v obou následujících
+      experimentech.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[c]
+\begin{figure}
+\vfill
+\begin{center}
+\includegraphics[height=4cm]{figs/quality-evaluation-1.pdf}
+\caption{Odhad pravděpodobnostní funkce $P(\text{na pozici }i\mid\text{relevantní})$
+  vyobrazený spolu s~pravděpodobnostními funkcemi Zipfova a diskrétního
+  rovnoměrného rozdělení.}
+\end{center}
+\end{figure}
+\end{frame}
+
+\againframe<4->{dataset}
 
 \section[Short Section 1 Name]{Full Section 1 Name}
 \subsection[Short Subsection 1 Name]{Full Subsection 1 Name}
@@ -138,8 +178,8 @@ text below a block\footnote{a footnote with an \url{http://address.edu}}
 
 \begin{frame}[plain]
 \vfill
-\centerline{Thank you for your attention!}
-\vfill\vfill
+\centerline{Děkuji vám za pozornost.}
+\vfill
 \end{frame}
 
 \end{document}
