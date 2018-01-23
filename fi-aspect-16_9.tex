@@ -28,7 +28,7 @@
 \end{frame}
 
 \section{Úvod}
-\begin{frame}{Úvod}
+\begin{frame}[label=introduction]{Úvod}
 \begin{itemize}
   \item<1-> V~rámci výzkumné skupiny Math Information Retrieval (\abbr{MIR})
     jsem se ve spolupráci s~firmou RaRe Technologies zúčastnil druhého ročníku
@@ -84,15 +84,58 @@
 \begin{figure}
 \vfill
 \begin{center}
-\includegraphics[height=4cm]{figs/quality-evaluation-1.pdf}
+\includegraphics[scale=0.8]{figs/quality-evaluation-1.pdf}
 \caption{Odhad pravděpodobnostní funkce $P(\text{na pozici }i\mid\text{relevantní})$
-  vyobrazený spolu s~pravděpodobnostními funkcemi Zipfova a diskrétního
-  rovnoměrného rozdělení.}
+  vyobrazený modře spolu s~pravděpodobnostními funkcemi Zipfova (oranžový graf)
+  a rovnoměrného rozdělení (zelený graf).}
 \end{center}
 \end{figure}
 \end{frame}
 
 \againframe<4->{dataset}
+
+\section{Segmentované vyhledávání}
+\begin{frame}<1>[label=segmentation]{Segmentované vyhledávání}
+\begin{itemize}
+  \item<1-> Vyhledávač navržený v projektu Omega indexuje a navrací
+    \alert<1>{tématicky koherentní segmenty dokumentů}. Vyhledávače však často
+    musí navracet celé dokumenty.
+  \item<2-> V rámci experimentu jsem vyhledávač rozšířil o komponentu, která
+    \alert<2>{agreguje podobnost segmentů vůči dotazu} do odhadu podobnosti
+      dokumentu vůči dotazu.
+    \begin{itemize}
+      \item<3-> \alert<3>{Vlákna představují dokumenty}, \alert<3>{dotaz a
+        komentáře uvnitř vláken představují segmenty}.
+      \item<3-> S ohledem na analýzu datových sad podúlohy 3a je hlavním agregačním
+        mechanismem \alert<3-4>{vážený průměr s~vahou $i^{-1}$ pro komentář na
+        pozici $i$}. Tento mechanismus porazil nad datovými sadami pro ročníky
+        2016 i 2017 vítěze soutěže.
+      \item<4-> Pro srovnání byl otestován i \alert<4>{vyhledávač bez segmentace},
+        který analogickým způsobem \alert<4>{váží jednotlivá slova dokumentu}.
+        Tento vyhledávač byl poražen baseline výsledkem.
+      \item<5-> Pro srovnání byl otestován i \alert<5>{vyhledávač bez segmentace},
+        který \alert<5>{z~vlákna zachovává pouze úvodní dotaz}. Tento
+        vyhledávač porazil baseline výsledek, ale ne vítěze soutěže.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\againframe<3>{introduction}
+\againframe<1-4>{segmentation}
+
+\begin{frame}[c]
+\begin{figure}
+\vfill
+\begin{center}
+\includegraphics[trim={0.8cm 0.0cm 2.8cm 0.5cm}, scale=0.8]{figs/quality-evaluation-4.pdf}
+\caption{Poměrný dopad jednotlivých slov v dokumentu na výsledný odhad
+  podobnosti při váženém průměru jednotlivých segmentů (modře vyplněný graf) a
+  při váženém průměru jednotlivých slov (oranžový graf).}
+\end{center}
+\end{figure}
+\end{frame}
+
+\againframe<4->{segmentation}
 
 \section[Short Section 1 Name]{Full Section 1 Name}
 \subsection[Short Subsection 1 Name]{Full Subsection 1 Name}
