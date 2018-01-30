@@ -241,7 +241,122 @@
 \vfill
 \end{frame}
 
+\begin{frame}<-3>[label=rebuttal-supervisor]{Reakce na posudek vedoucího}
+\vspace*{-.1cm}
+\begin{quote}
+\alert<1>{Interpretujte obrázky 4.1--4.5} a způsoby nastavení prahu
+\alert<1>{hustoty matice $\mathbf{S}_{\text{rel}}$}.
+\end{quote}
+\vspace*{-.1cm}
+\begin{itemize}
+  \item<2-> První z popsaných a testovaných matic $\mathbf S$ je \alert<2>{matice
+    $\mathbf{S}_{\text{rel}}$}, která \alert<2>{odvozuje úhel mezi dvěma
+    bázovými vektory z úhlu mezi embeddingy příslušných slov}\only<2-3>:\only<4->.
+    \only<2-3>{%
+    \begin{itemize}
+      \item[]
+    \end{itemize}
+    \vspace*{-.2cm}
+    \begin{equation*}
+      s_{ij} = \begin{cases}
+        1 & \text{pokud }i = j\text{,} \\
+        0 & \text{pokud }\alert<3>{\langle\mathbf v_i / \Vert\mathbf v_i\Vert, \mathbf v_j / \Vert\mathbf v_j\Vert\rangle_{\mathbb X}\leq\theta_3}\text{ a} \\
+        \alert<2>{\langle\mathbf v_i / \Vert\mathbf v_i\Vert, \mathbf v_j / \Vert\mathbf v_j\Vert\rangle_{\mathbb X}^{\theta_5}}\index{.h3@$\theta _3$}\index{.h5@$\theta_5$|emph}&\text{jinak.}
+      \end{cases}
+    \end{equation*}}
+    \begin{itemize}
+      \item<3-> \alert<3>{Hustotu} matice $\mathbf{S}_{\text{rel}}$ \alert<3>{lze
+        řídit parametry $C$, $\theta_3$ a \texttt{min\_count}}.
+    \end{itemize}
+  \item<4-> Druhá z popsaných a testovaných matic $\mathbf S$ je \alert<4>{matice
+    $\mathbf{S}_{\text{lev}}$}, která \alert<4>{odvozuje úhel mezi dvěma
+    bázovými vektory z Levenshteinovy vzdálenosti příslušných slov}:
+    \begin{equation*}
+      s_{ij} = \begin{cases}
+        1 & \text{pokud }i = j\text{,} \\
+        0 & \text{pokud }\alert<5>{\theta_1\left(1-\frac{\operatorname{edit}(i, j)}{\max(b_i, b_j)}\right)^{\theta_2}\leq\theta_3}\text{ a} \\
+        \alert<4>{\theta_1\left(1-\frac{\operatorname{edit}(i, j)}{\max(b_i, b_j)}\right)^{\theta_2}} & \index{.h1@$\theta_1$|emph}\index{.h2@$\theta_2$|emph}\index{.h3@$\theta _3$|emph}\text{jinak.}
+      \end{cases}
+    \end{equation*}
+    \begin{itemize}
+      \item<5-> \alert<3>{Hustotu} matice $\mathbf{S}_{\text{lev}}$ \alert<5>{lze
+        řídit parametry $C$ a $\theta_3$}.
+    \end{itemize}
+\end{itemize}
+\only<1-4>{\vspace*{60cm}}
+\end{frame}
+
+\begin{frame}[c]
+\begin{figure}
+\vfill
+\begin{center}
+\includegraphics[scale=0.65]{figs/fig2}
+\end{center}
+  \caption{Graf \abbr{MAP} skóre a hustoty matice $\mathbf S_{\text{rel}}$, \alert{při
+  změně parametru $C$} od hodnoty 1 (vlevo) po hodnotu 10\,000 (vpravo).
+  Vodorovné přímky značí \abbr{MAP} skóre při použití kosinové podobnosti.
+  Svislá přímka značí výchozí hodnotu parametru $C$.}
+\end{figure}
+\end{frame}
+
+\begin{frame}[c]
+\begin{figure}
+\vfill
+\begin{center}
+\includegraphics[scale=0.65]{figs/fig3}
+\caption{Graf \abbr{MAP} skóre a hustoty matice $\mathbf S_{\text{rel}}$, \alert{při
+  změně parametru $\theta_3$} od hodnoty 0,8 (vlevo) po hodnotu 0 (vpravo).
+  Vodorovné přímky značí \abbr{MAP} skóre při použití kosinové podobnosti.
+  Svislá přímka značí výchozí hodnotu parametru $\theta_3$.}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}[c]
+\begin{figure}
+\vfill
+\begin{center}
+\includegraphics[scale=0.65]{figs/fig1}
+\end{center}
+\caption{Graf \abbr{MAP} skóre a hustoty matice $\mathbf S_{\text{rel}}$, \alert{při
+  změně parametru \texttt{min\_count}} od hodnoty 5\,000 (vlevo) po hodnotu 0 (vpravo).
+  Vodorovné přímky značí \abbr{MAP} skóre při použití kosinové podobnosti.
+  Svislá přímka značí výchozí hodnotu parametru \texttt{min\_count}.}
+\end{figure}
+\end{frame}
+
+\againframe<3-5>{rebuttal-supervisor}
+
+\begin{frame}[c]
+\begin{figure}
+\vfill
+\begin{center}
+\includegraphics[scale=0.65]{figs/fig1}
+\end{center}
+\caption{Graf \abbr{MAP} skóre a hustoty matice $\mathbf S_{\text{lev}}$, \alert{při
+  změně parametru $C$} od hodnoty 1 (vlevo) po hodnotu 1\,000 (vpravo).
+  Vodorovné přímky značí \abbr{MAP} skóre při použití kosinové podobnosti.
+  Svislá přímka značí výchozí hodnotu parametru $C$.}
+\end{figure}
+\end{frame}
+
+\begin{frame}[c]
+\begin{figure}
+\vfill
+\begin{center}
+\includegraphics[scale=0.65]{figs/fig2}
+\caption{Graf \abbr{MAP} skóre a hustoty matice $\mathbf S_{\text{lev}}$, \alert{při
+  změně parametru $\theta_3$} od hodnoty 0,8 (vlevo) po hodnotu 0 (vpravo).
+  Vodorovné přímky značí \abbr{MAP} skóre při použití kosinové podobnosti.
+  Svislá přímka značí výchozí hodnotu parametru $\theta_3$.}
+\end{center}
+\end{figure}
+\end{frame}
+
+\againframe<5>{rebuttal-supervisor}
+
 \begin{frame}<-2>[label=rebuttal-opponent]{Reakce na posudek oponenta}
+\vspace*{-.1cm}
 \begin{quote}
 K~obhajobě práce mám na autora jednu otázku: V~kapitole 4.6 je popsána \alert<1>{metoda
 expanze dotazů}, která umožňuje nalézt i takové dokumenty, které neobsahují
@@ -250,7 +365,7 @@ expanze dotazů}, která umožňuje nalézt i takové dokumenty, které neobsahu
 expandovanými termy. \alert<1>{Jsou oba přístupy ekvivalentní}, nebo je některý
 z~nich pro information retrieval výhodnější?
 \end{quote}
-\only<2->{%
+\vspace*{-.1cm}
 \begin{itemize}
   \item<2-> V sekci 4.6 popisuji, jak lze \alert<2-4>{neortogonální model
     implementovat pomocí expanze dotazu} na straně klienta.
@@ -264,7 +379,7 @@ z~nich pro information retrieval výhodnější?
     invertovaný index}, ale \alert<5>{dochází až k $n$-násobnému nárůstu objemu
     uchovávaných dat} a \alert<5>{změna matic $\mathbf S$ vyžaduje opětovnou
     indexaci} všech dokumentů.
-\end{itemize}}
+\end{itemize}
 \end{frame}
 
 \begin{frame}[c]
