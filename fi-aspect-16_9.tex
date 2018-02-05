@@ -35,7 +35,7 @@
 \begin{itemize}
   \item<1-> V~rámci výzkumné skupiny Math Information Retrieval (\abbr{MIR})
     jsem se ve spolupráci s~firmou RaRe Technologies zúčastnil třetího kola
-    projektu \alert<1>{\abbr{TA} \abbr{ČR} Omega}.
+    programu \alert<1>{\abbr{TA} \abbr{ČR} Omega}.
   \item<2-> Cíl byl vyvinout \alert<2-3>{segmentující vyhledávač}
     nestrukturovaných textových dokumentů\only<2-3>:\only<4->.
   \only<4->{%
@@ -62,10 +62,10 @@
 \begin{frame}<1-4>[label=dataset]{Datová sada}
 \begin{itemize}
 \item<1-> V rámci obou experimentů jsem využil datovou sadu pro úlohu 3
-  (zodpovídání dotazů) z~ročníků 2016 a 2017 soutěže SemEval.
-\item<2-> Datové sady pro podúlohu 3a obsahují \alert<2-6>{vlákna s dotazem a
+  (komunitní poradny) z~ročníků 2016 a 2017 soutěže SemEval.
+\item<2-> Datové sady pro podúlohu 3a obsahují \alert<2-6>{vlákna s otázkou a
   prvními deseti komentáři} spolu s~anotací, jestli \alert<2-6>{je komentář
-  relevantní k~dotazu}.
+  relevantní vůči~otázce}.
   \begin{itemize}
     \item<3-> Mike Godwin roku 1991 formuloval empirické pravidlo, že
       „s~rostoucí délkou UseNetové diskuze se pravděpodobnost přirovnání
@@ -110,7 +110,7 @@
     \begin{itemize}
       \only<-2>{\item[]}
       \only<3->{%
-      \item<3-> \alert<3>{Vlákna představují dokumenty}, \alert<3>{dotaz a
+      \item<3-> \alert<3>{Vlákna představují dokumenty}, \alert<3>{otázka a
         komentáře uvnitř vláken představují segmenty}.
       \item<4-> S ohledem na analýzu datových sad podúlohy 3a je hlavním agregačním
         mechanismem \alert<4-5>{vážený průměr s~vahou $i^{-1}$ pro komentář na
@@ -120,7 +120,7 @@
         který analogickým způsobem \alert<5>{váží jednotlivá slova dokumentu}.
         Tento vyhledávač \alert<5>{byl poražen baseline výsledkem}.
       \item<6-> Pro srovnání byl otestován i \alert<6>{vyhledávač bez segmentace},
-        který \alert<6>{z~vlákna zachovává pouze úvodní dotaz}. Tento
+        který \alert<6>{z~vlákna zachovává pouze úvodní otázku}. Tento
         vyhledávač \alert<6>{porazil baseline výsledek}, \alert<6>{ale ne
         vítěze soutěže}.}
     \end{itemize}
@@ -145,34 +145,27 @@
 \againframe<5->{segmentation}
 
 \section{Modelování synonymie}
-\begin{frame}<1-3>[label=similarity]{Modelování synonymie}
+\begin{frame}<1-2>[label=similarity]{Modelování synonymie}
 \begin{itemize}
   \item<1-> Vyhledávač navržený v projektu Omega reprezentuje dokumenty pomocí
-    \alert<1>{slovních histogramů (bag of words)}, nebo pomocí \alert<1>{histogramů
-    témat (\abbr{LSA})}.
+    \alert<1>{slovních histogramů (bag of words)}.
   \item<2-> \alert<2>{Podobnost} dvou dokumentů \alert<2>{je dána kosinem úhlu}
-    mezi histogramy.
-  \item<3-> S ohledem na modelování synonymie slov trpí obě reprezentace neduhy:
-    \begin{itemize}
-      \item<3-> Standardní model předpokládá, že \alert<3>{histogramy zadávají
-        souřadnice v~ortogonální bázi}.
-      \item<4-> LSA \alert<4>{shlukuje slova} do témat výhradně \alert<4>{na
-        základě jejich souvýskytu} v~segmentech.
-    \end{itemize}
-  \item<5-> Vyhledávač jsem rozšířil, aby \alert<5>{nepředpokládal, že
+    mezi histogramy; standardní model předpokládá, že \alert<2>{histogramy
+    zadávají souřadnice v~ortogonální bázi}.
+  \item<3-> Vyhledávač jsem rozšířil, aby \alert<3>{nepředpokládal, že
     bázové vektory jsou ortogonální}.
     \begin{itemize}
-      \item<6-> \alert<6>{Skalární součin} bázových vektorů je \alert<6>{zadán
+      \item<4-> \alert<4>{Skalární součin} bázových vektorů je \alert<4>{zadán
         Gramovou maticí $\mathbf S$} velikosti $n$.
-      \item<7-> Popsal jsem, kdy lze \alert<7>{vypočítat kosinus úhlu
+      \item<5-> Popsal jsem, kdy lze \alert<5>{vypočítat kosinus úhlu
         v~konstatním čase}.
-      \item<8-> Popsal jsem, jak \alert<8>{v~čase $\mathcal O(n^3)$ vypočítat matici
+      \item<6-> Popsal jsem, jak \alert<6>{v~čase $\mathcal O(n^3)$ vypočítat matici
         přechodu do ortogonální báze}.
-      \item<9-> Zadefinoval jsem trojici matic $\mathbf S$, které
-        \alert<9>{modelují různé rysy synonymie}.
-      \item<10-> Diskutoval jsem \alert<10>{implementaci ve vektorových databázích
+      \item<7-> Zadefinoval a evaluoval jsem trojici matic $\mathbf S$, které
+        \alert<7>{modelují různé rysy synonymie}.
+      \item<8-> Diskutoval jsem \alert<8>{implementaci ve vektorových databázích
         a~invertovaných indexech}.
-      \item<11-> Dosáhl jsem \alert<11>{srovnatelných výsledků s~vítězi} ročníků 2016 a
+      \item<9-> Dosáhl jsem \alert<9>{srovnatelných výsledků s~vítězi} ročníků 2016 a
         2017 soutěže SemEval.
     \end{itemize}
 \end{itemize}
@@ -189,7 +182,7 @@
 \end{figure}
 \end{frame}
 
-\againframe<3-5>{similarity}
+\againframe<2-3>{similarity}
 
 \begin{frame}[c]
 \begin{figure}
@@ -202,10 +195,10 @@
 \end{figure}
 \end{frame}
 
-\againframe<5->{similarity}
+\againframe<3->{similarity}
 
 \section{Závěr a budoucí výzkum}
-\begin{frame}[label=introduction]{Závěr a budoucí výzkum}
+\begin{frame}[label=conclusion]{Závěr a budoucí výzkum}
 \begin{itemize}
   \item<1-> Objevil jsem \alert<1-2>{statisticky významný vztah mezi pozicí
     příspěvku} v~diskuzi \alert<1-2>{a jeho relevancí} k~tématu diskuze na
@@ -222,7 +215,7 @@
       \alert<4>{implementuje obě techniky současně}, ideálně na nezávislých
       datových sadách.
   \end{itemize}
-  \item<5-> Kapitolu o agregaci jsem nezávisle zaslal na konferenci \abbr{ECIR}~2018.
+  \item<5-> Kapitolu o segmentaci jsem nezávisle zaslal na konferenci \abbr{ECIR}~2018.
   \begin{itemize}
     \item<6-> Jeden z recenzentů \alert<6>{navrhl článek na \term{best paper award}}.
     \item<7-> Článek byl \alert<7>{zamítnut} kvůli údajné \alert<6-7>{nedostatečné
@@ -235,6 +228,18 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}[c]
+\begin{figure}
+\vfill
+\begin{center}
+\includegraphics[scale=0.45]{figs/gensim-twitter}
+\end{center}
+\caption{Neortogonální model po implementaci do knihovny Gensim 3.4.0.}
+\end{figure}
+\end{frame}
+
+\againframe<9>{conclusion}
+
 \begin{frame}[label=thanks, plain]
 \vfill
 \centerline{Děkuji vám za pozornost.}
@@ -245,7 +250,7 @@
 \vspace*{-.1cm}
 \begin{quote}
 \alert<1>{Interpretujte obrázky 4.1--4.5} a způsoby nastavení prahu
-\alert<1>{hustoty matice $\mathbf{S}_{\text{rel}}$}.
+\alert<1>{hustoty matice $\mathbf{S}_{\text{\textup{rel}}}$}.
 \end{quote}
 \vspace*{-.1cm}
 \begin{itemize}
@@ -299,6 +304,8 @@
 \end{figure}
 \end{frame}
 
+\againframe<3>{rebuttal-supervisor}
+
 \begin{frame}[c]
 \begin{figure}
 \vfill
@@ -311,6 +318,8 @@
 \end{center}
 \end{figure}
 \end{frame}
+
+\againframe<3>{rebuttal-supervisor}
 
 \begin{frame}[c]
 \begin{figure}
@@ -331,7 +340,7 @@
 \begin{figure}
 \vfill
 \begin{center}
-\includegraphics[scale=0.65]{figs/fig1}
+\includegraphics[scale=0.65]{figs/fig4}
 \end{center}
 \caption{Graf \abbr{MAP} skóre a hustoty matice $\mathbf S_{\text{lev}}$, \alert{při
   změně parametru $C$} od hodnoty 1 (vlevo) po hodnotu 1\,000 (vpravo).
@@ -340,11 +349,13 @@
 \end{figure}
 \end{frame}
 
+\againframe<5>{rebuttal-supervisor}
+
 \begin{frame}[c]
 \begin{figure}
 \vfill
 \begin{center}
-\includegraphics[scale=0.65]{figs/fig2}
+\includegraphics[scale=0.65]{figs/fig5}
 \caption{Graf \abbr{MAP} skóre a hustoty matice $\mathbf S_{\text{lev}}$, \alert{při
   změně parametru $\theta_3$} od hodnoty 0,8 (vlevo) po hodnotu 0 (vpravo).
   Vodorovné přímky značí \abbr{MAP} skóre při použití kosinové podobnosti.
@@ -370,15 +381,13 @@ z~nich pro information retrieval výhodnější?
   \item<2-> V sekci 4.6 popisuji, jak lze \alert<2-4>{neortogonální model
     implementovat pomocí expanze dotazu} na straně klienta.
   \begin{itemize}
-    \item<3-> Na serveru lze použít \alert<3>{běžný invertovaný index},
-      který uchovává původní dokumenty.
+    \item<3-> Na serveru lze uchovávat \alert<3>{původní dokumenty}.
     \item<4-> Na klientovi lze použít \alert<4>{rozličné matice $\mathbf S$}
       bez změny obsahu indexu.
   \end{itemize}
-  \item<5-> Při expanzi indexovaných dokumentů \alert<5>{lze stále použít běžný
-    invertovaný index}, ale \alert<5>{dochází až k $n$-násobnému nárůstu objemu
-    uchovávaných dat} a \alert<5>{změna matic $\mathbf S$ vyžaduje opětovnou
-    indexaci} všech dokumentů.
+  \item<5-> Při expanzi indexovaných dokumentů \alert<5>{dochází až k
+    $n$-násobnému nárůstu objemu uchovávaných dat} a \alert<5>{změna matic
+    $\mathbf S$ vyžaduje opětovnou indexaci} všech dokumentů.
 \end{itemize}
 \end{frame}
 
